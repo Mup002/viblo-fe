@@ -18,6 +18,7 @@ export default {
         'textDisplayColor' : '#ADADAD',
         'borderPage' :'#5488C7',
         'bgUpBtn' : '#5488C7'
+        
       }
     },
   },

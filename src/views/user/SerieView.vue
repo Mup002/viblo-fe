@@ -5,7 +5,7 @@
     <div class="nav_ w-full bg-navBg h-[60px]">
         <ul class="flex justify-around items-center list-none w-[80%] h-full">
             <li class="text-white font-[15px] ">
-                <router-link to="/content-creator" class="router pb-[5px]">
+                <router-link to="/content-creator">
                     Nhà sáng tạo nội dung
                 </router-link>
             </li>
@@ -14,14 +14,12 @@
                     Đang theo dõi
                 </router-link>
             </li> -->
-            <li class="text-white font-[15px]"
-            >
-                <router-link to="/newest" class="router" >
+            <li class="text-white font-[15px]">
+                <router-link to="/newest" class="router">
                     Mới nhất
                 </router-link>
             </li>
-            <li class="text-white font-[15px]"
-            >
+            <li class="text-white font-[15px]">
                 <router-link to="/serie" class="router">
                     Series
                 </router-link>
@@ -31,7 +29,7 @@
                     Editor Choice
                 </router-link>
             </li>
-            <li class="text-white font-[15px]" >
+            <li class="text-white font-[15px]">
                 <router-link to="/trending" class="router">
                     Trending
                 </router-link>
@@ -44,49 +42,42 @@
         </ul>
     </div>
     <div class="bg-gradient-to-r from-purple-700 to-green-500 py-6 flex justify-center items-center w-full h-[60px]">
-        <a href="https://www.facebook.com/groups/viblo.community.official" class="hover:underline text-white font-bold text-[18px]">
-            >> Tham gia Facebook group "Viblo Community" để cùng nhau học tập và kết nối <<
-        </a>
+        <a href="https://www.facebook.com/groups/viblo.community.official"
+            class="hover:underline text-white font-bold text-[18px]">
+            >> Tham gia Facebook group "Viblo Community" để cùng nhau học tập và kết nối << </a>
     </div>
     <div class="main_content mt-[40px] flex">
         <div class="r_content w-[70%]  items-center pl-[5%]">
-          
-            <div class="w-full flex justify-end items-center">
-                <div class="mx-[10px] relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.1em" viewBox="0 0 1792 1408"
-                        @mouseover="isDropdownTitle = true" @mouseout="isDropdownTitle = false"
-                        @click="isShowContent = false">
-                        <path fill="#5488C7"
-                            d="M512 1120v192q0 40-28 68t-68 28H96q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h320q40 0 68 28t28 68m0-512v192q0 40-28 68t-68 28H96q-40 0-68-28T0 800V608q0-40 28-68t68-28h320q40 0 68 28t28 68m1280 512v192q0 40-28 68t-68 28H736q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h960q40 0 68 28t28 68M512 96v192q0 40-28 68t-68 28H96q-40 0-68-28T0 288V96q0-40 28-68T96 0h320q40 0 68 28t28 68m1280 512v192q0 40-28 68t-68 28H736q-40 0-68-28t-28-68V608q0-40 28-68t68-28h960q40 0 68 28t28 68m0-512v192q0 40-28 68t-68 28H736q-40 0-68-28t-28-68V96q0-40 28-68t68-28h960q40 0 68 28t28 68" />
+            <div class="w-full relative">
+                <h1
+                    class="w-full mx-auto pl-[10%] mb-[20px] flex justify-center items-center text-textDisplayColor text-[15px]">
+                    Series không có bài viết nào sẽ chỉ được hiển thị trên trang cá nhân của người dùng và sẽ không được
+                    hiển thị ở đây.
+                </h1>
+                <div
+                    class="w-[150px] h-[40px] rounded-sm bg-bgUpBtn float-right flex justify-center items-center hover:bg-blue-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                        <path fill="white" d="M20 14h-6v6h-4v-6H4v-4h6V4h4v6h6z" />
                     </svg>
-                    <div v-if="isDropdownTitle" class="dropdown">Chỉ tiêu đề</div>
-                </div>
-                <div class="mx-[10px] relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.1em" viewBox="0 0 2048 1408"
-                        @mouseover="isDropdownContent = true" @mouseout="isDropdownContent = false"
-                        @click="isShowContent = true">
-                        <path fill="#5488C7"
-                            d="M1024 384H640v384h384zm128 640v128H512v-128zm0-768v640H512V256zm640 768v128h-512v-128zm0-256v128h-512V768zm0-256v128h-512V512zm0-256v128h-512V256zM256 1216V256H128v960q0 26 19 45t45 19t45-19t19-45m1664 0V128H384v1088q0 33-11 64h1483q26 0 45-19t19-45M2048 0v1216q0 80-56 136t-136 56H192q-80 0-136-56T0 1216V128h256V0z" />
-                    </svg>
-                    <div v-if="isDropdownContent" class="dropdown">Xem trước nội dung</div>
+                    <h1 class="text-[15px] text-white font-semibold">TẠO SERIES MỚI</h1>
                 </div>
             </div>
-            <ul class="flex-wrap items-center w-full mt-[10px]">
-                <li v-for="(article, index) in this.articleList" :key="index">
+            <ul class="flex-wrap items-center w-full mt-[20px]">
+                <li v-for="(serie, index) in this.serieList" :key="index">
                     <div class="w-[100%] flex justify-start pl-[10%]  mb-[6px] mx-[auto] pb-[8px]">
                         <div class="avt_ w-[6%] flex justify-end border-b-[1px]">
                             <img class="mx-4 rounded-[50%] w-[40px] h-[40px]"
-                                :src="article.user.avt_url ? article.user.avt_url : 'https://images.viblo.asia/60x60/d1cbe1cf-3a91-41c1-a7b4-49c51e3db42a.jpg'"
+                                :src="serie.user.avt_url ? serie.user.avt_url : 'https://images.viblo.asia/60x60/d1cbe1cf-3a91-41c1-a7b4-49c51e3db42a.jpg'"
                                 alt="Avatar">
                         </div>
                         <div class="body_ w-[80%] flex-wrap border-b-[1px] ">
                             <div class="flex justify-start items-center text-[12px]">
-                                <div class="user_i text-nameColor hover:underline">{{ article.user.display_name }}</div>
+                                <div class="user_i text-nameColor hover:underline">{{ serie.user.display_name }}</div>
                                 <div class="time_up ml-[20px] relative" @mouseover="showDropdownTime(index)"
                                     @mouseout="hideDropdownTime(index)">
-                                    {{ timeAgo(article.created_at) }}
+                                    {{ timeAgo(serie.created_at) }}
                                     <div v-if="isDropdownTime[index]" class="dropdown">
-                                        {{ formatDate(article.created_at) }}
+                                        {{ formatDate(serie.created_at) }}
                                     </div>
                                 </div>
                                 <div class="url_ ml-[40px]">
@@ -100,18 +91,15 @@
                                 </div>
                             </div>
                             <div class="title_ flex w-full mt-[10px]">
-                                <h1 class=" mr-[20px] font-bold text-[16px] hover:text-nameColor">{{ article.title }}</h1>
+                                <h1 class=" mr-[20px] font-bold text-[16px] hover:text-nameColor">{{ serie.title }}</h1>
                                 <div class="">
                                     <ul class="flex justify-center items-center">
                                         <li class="mr-[4px] h-[20px] flex items-center border rounded-[5px] text-[12px] bg-tagBg hover:bg-tagBgHover"
-                                            v-for="(tag, indexx) in article.tags" :key="indexx">
+                                            v-for="(tag, indexx) in serie.tags" :key="indexx">
                                             {{ tag.tagname }}
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
-                            <div v-if="isShowContent" class="content_ w-full mt-[10px]">
-                                {{ article.content.substring(0, 100) }}
                             </div>
                             <div class="tag_"> </div>
                             <div class="other_i flex justify-between items-center w-full">
@@ -139,6 +127,14 @@
                                                 d="M1408 512q0 139-94 257t-256.5 186.5T704 1024q-86 0-176-16q-124 88-278 128q-36 9-86 16h-3q-11 0-20.5-8t-11.5-21q-1-3-1-6.5t.5-6.5t2-6l2.5-5l3.5-5.5l4-5l4.5-5l4-4.5q5-6 23-25t26-29.5t22.5-29t25-38.5t20.5-44Q142 841 71 736T0 512q0-139 94-257T350.5 68.5T704 0t353.5 68.5T1314 255t94 257m384 256q0 120-71 224.5T1526 1169q10 24 20.5 44t25 38.5t22.5 29t26 29.5t23 25q1 1 4 4.5t4.5 5t4 5t3.5 5.5l2.5 5l2 6l.5 6.5l-1 6.5q-3 14-13 22t-22 7q-50-7-86-16q-154-40-278-128q-90 16-176 16q-271 0-472-132q58 4 88 4q161 0 309-45t264-129q125-92 192-212t67-254q0-77-23-152q129 71 204 178t75 230" />
                                         </svg>
                                         <h1 class="pr-[5px]">{{ 0 }}</h1>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="0.8em" height="0.8em"
+                                            viewBox="0 0 1792 1792">
+                                            <path fill="#747272"
+                                                d="M768 1664h896v-640h-416q-40 0-68-28t-28-68V512H768zm256-1440v-64q0-13-9.5-22.5T992 128H288q-13 0-22.5 9.5T256 160v64q0 13 9.5 22.5T288 256h704q13 0 22.5-9.5t9.5-22.5m256 672h299l-299-299zm512 128v672q0 40-28 68t-68 28H736q-40 0-68-28t-28-68v-160H96q-40 0-68-28t-28-68V96q0-40 28-68T96 0h1088q40 0 68 28t28 68v328q21 13 36 28l408 408q28 28 48 76t20 88" />
+                                        </svg>
+                                        <h1 class="pr-[5px]">{{ serie.articles }}</h1>
                                     </div>
                                 </div>
                                 <div class="flex justify-center items-center">
@@ -290,8 +286,7 @@ export default {
     },
     data() {
         return {
-            tagId : 32,
-            articleList: [],
+            serieList: [],
             questionList: [],
             currentPage: 1,
             isDropdownTime: [],
@@ -312,7 +307,7 @@ export default {
         window.removeEventListener('scroll', this.handleScroll);
     },
     async mounted() {
-        this.getArticleListByPage(this.tagId,this.currentPage);
+        this.getSerieListByPage(this.currentPage);
         this.getQuestionLatest();
         if (this.pageInfo.current_page != this.currentPage) {
             this.currentPage = this.pageInfo.current_page;
@@ -320,12 +315,11 @@ export default {
 
     },
     methods: {
-        async getArticleListByPage(tagId,pageNumber) {
+        async getSerieListByPage(pageNumber) {
             try {
-                const response = await axios.get(`http://viblo.local/api/v1/article/getArticlesByTagId?tagId=${tagId}&page=${pageNumber}`)
-                this.articleList = response.data.article
+                const response = await axios.get(`http://viblo.local/api/v1/series/getSeriesByPage?page=${pageNumber}`)
+                this.serieList = response.data.data
                 this.pageInfo = response.data.page
-                console.log(this.pageInfo)
             } catch (error) {
                 console.log(error)
             }
@@ -355,7 +349,7 @@ export default {
             if (this.currentPage == this.pageInfo.last_page) {
                 this.currentPage = this.pageInfo.last_page;
             } else {
-                this.getArticleListByPage(this.tagId,this.currentPage++);
+                this.getSerieListByPage(this.currentPage++);
             }
 
         },
@@ -363,11 +357,11 @@ export default {
             if (this.currentPage == 1) {
                 this.currentPage = 1;
             } else {
-                this.getArticleListByPage(this.tagId,this.currentPage--);
+                this.getSerieListByPage(this.currentPage--);
             }
         },
         changePage(index) {
-            this.getArticleListByPage(index);
+            this.getSerieListByPage(index);
             this.currentPage = index
         },
         handleScroll() {

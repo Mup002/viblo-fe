@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header class="w-full h-[100px] items-center fixed">
+  <header class="w-full h-[50px] items-center fixed">
     <div class="w-full flex justify-between items-center  bg-gray-200">
       <div class="w-1/3 flex justify-center items-center h-[50px]">
         <ul class="flex h-full space-x-4 list-none items-center">

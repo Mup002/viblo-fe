@@ -290,7 +290,7 @@ export default {
     },
     data() {
         return {
-            tagId : 32,
+            tagId : 31,
             articleList: [],
             questionList: [],
             currentPage: 1,
