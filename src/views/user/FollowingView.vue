@@ -1,6 +1,10 @@
 <template>
     <div class="main_content mt-[40px] flex">
-        <div class="r_content w-[70%]  items-center pl-[5%]">
+        <div v-if="!haveArticles" class="r_content w-[70%]  items-center pl-[5%]"> 
+            <h1 class="text-textDisplayColor text-[25px] flex justify-center">Không có người dùng nào bạn theo dõi</h1>
+        </div>
+
+        <div v-else class="r_content w-[70%]  items-center pl-[5%]">
 
             <div class="w-full flex justify-end items-center">
                 <div class="mx-[10px] relative">
@@ -242,7 +246,8 @@ export default {
     },
     data() {
         return {
-            userData : null,
+            haveArticles: true,
+            userData: null,
             articleList: [],
             questionList: [],
             currentPage: 1,
@@ -264,26 +269,35 @@ export default {
         window.removeEventListener('scroll', this.handleScroll);
     },
     async mounted() {
+       
         const storedUserData = localStorage.getItem('userData');
         if (storedUserData) {
             this.userData = JSON.parse(storedUserData);
         }
-        console.log(this.userData)
-        this.getArticleListByPage(this.currentPage);
+        
+        this.getArticleListByPage(this.userData.user.user_id,this.currentPage);
         this.getQuestionLatest();
         if (this.pageInfo.current_page != this.currentPage) {
             this.currentPage = this.pageInfo.current_page;
         }
 
         //// 
-       
 
+        // api/user/getArticlesByFollowers?userId=168&page=1
     },
     methods: {
-        async getArticleListByPage(pageNumber) {
+        async getArticleListByPage(userId, pageNumber) {
             try {
-                const response = await axios.get(`http://viblo.local/api/v1/article/getLatestArticles?page=${pageNumber}`)
+                const config = {
+                headers: {
+                    'Authorization': `Bearer ${this.userData.access_token}`
+                }
+            }
+                const response = await axios.get(`http://viblo.local/api/user/getArticlesByFollowers?userId=${userId}&page=${pageNumber}`,config)
                 this.articleList = response.data.article
+                if(response.data.article.length === 0){
+                    this.haveArticles = false;
+                }
                 this.pageInfo = response.data.page
             } catch (error) {
                 console.log(error)
@@ -314,7 +328,7 @@ export default {
             if (this.currentPage == this.pageInfo.last_page) {
                 this.currentPage = this.pageInfo.last_page;
             } else {
-                this.getArticleListByPage(this.currentPage++);
+                this.getArticleListByPage(this.userData.user.user_id,this.currentPage++);
             }
 
         },
@@ -322,11 +336,11 @@ export default {
             if (this.currentPage == 1) {
                 this.currentPage = 1;
             } else {
-                this.getArticleListByPage(this.currentPage--);
+                this.getArticleListByPage(this.userData.user.user_id,this.currentPage--);
             }
         },
         changePage(index) {
-            this.getArticleListByPage(index);
+            this.getArticleListByPage(this.userData.user.user_id,index);
             this.currentPage = index
         },
         handleScroll() {
