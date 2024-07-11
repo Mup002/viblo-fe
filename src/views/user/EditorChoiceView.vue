@@ -1,53 +1,5 @@
 <template>
-    <!-- <div class="banner_">
-
-    </div> -->
-    <div class="nav_ w-full bg-navBg h-[60px]">
-        <ul class="flex justify-around items-center list-none w-[80%] h-full">
-            <li class="text-white font-[15px] ">
-                <router-link to="/content-creator" class="router pb-[5px]">
-                    Nhà sáng tạo nội dung
-                </router-link>
-            </li>
-            <!-- <li class="text-white font-[15px]">
-                <router-link to="/followings" class="">
-                    Đang theo dõi
-                </router-link>
-            </li> -->
-            <li class="text-white font-[15px]"
-            >
-                <router-link to="/newest" class="router" >
-                    Mới nhất
-                </router-link>
-            </li>
-            <li class="text-white font-[15px]"
-            >
-                <router-link to="/serie" class="router">
-                    Series
-                </router-link>
-            </li>
-            <li class="text-white font-[15px]">
-                <router-link to="/editor-choice" class="router">
-                    Editor Choice
-                </router-link>
-            </li>
-            <li class="text-white font-[15px]" >
-                <router-link to="/trending" class="router">
-                    Trending
-                </router-link>
-            </li>
-            <li class="text-white font-[15px]">
-                <router-link to="/videos" class="router">
-                    Videos
-                </router-link>
-            </li>
-        </ul>
-    </div>
-    <div class="bg-gradient-to-r from-purple-700 to-green-500 py-6 flex justify-center items-center w-full h-[60px]">
-        <a href="https://www.facebook.com/groups/viblo.community.official" class="hover:underline text-white font-bold text-[18px]">
-            >> Tham gia Facebook group "Viblo Community" để cùng nhau học tập và kết nối <<
-        </a>
-    </div>
+    
     <div class="main_content mt-[40px] flex">
         <div class="r_content w-[70%]  items-center pl-[5%]">
           

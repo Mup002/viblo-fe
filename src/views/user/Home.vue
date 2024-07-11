@@ -2,55 +2,10 @@
     <!-- <div class="banner_">
 
     </div> -->
-    <div class="nav_ w-full bg-navBg h-[60px]">
-        <ul class="flex justify-around items-center list-none w-[80%] h-full">
-            <li class="text-white font-[15px] ">
-                <router-link to="/content-creator" class="router pb-[5px]">
-                    Nhà sáng tạo nội dung
-                </router-link>
-            </li>
-            <!-- <li class="text-white font-[15px]">
-                <router-link to="/followings" class="">
-                    Đang theo dõi
-                </router-link>
-            </li> -->
-            <li class="text-white font-[15px]"
-            >
-                <router-link to="/newest" class="router" >
-                    Mới nhất
-                </router-link>
-            </li>
-            <li class="text-white font-[15px]"
-            >
-                <router-link to="/serie" class="router">
-                    Series
-                </router-link>
-            </li>
-            <li class="text-white font-[15px]">
-                <router-link to="/editor-choice" class="router">
-                    Editor Choice
-                </router-link>
-            </li>
-            <li class="text-white font-[15px]" >
-                <router-link to="/trending" class="router">
-                    Trending
-                </router-link>
-            </li>
-            <li class="text-white font-[15px]">
-                <router-link to="/videos" class="router">
-                    Videos
-                </router-link>
-            </li>
-        </ul>
-    </div>
-    <div class="bg-gradient-to-r from-purple-700 to-green-500 py-6 flex justify-center items-center w-full h-[60px]">
-        <a href="https://www.facebook.com/groups/viblo.community.official" class="hover:underline text-white font-bold text-[18px]">
-            >> Tham gia Facebook group "Viblo Community" để cùng nhau học tập và kết nối <<
-        </a>
-    </div>
+   
     <div class="main_content mt-[40px] flex">
         <div class="r_content w-[70%]  items-center pl-[5%]">
-          
+
             <div class="w-full flex justify-end items-center">
                 <div class="mx-[10px] relative">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.1em" viewBox="0 0 1792 1408"
@@ -100,7 +55,8 @@
                                 </div>
                             </div>
                             <div class="title_ flex w-full mt-[10px]">
-                                <h1 class=" mr-[20px] font-bold text-[16px] hover:text-nameColor">{{ article.title }}</h1>
+                                <h1 class=" mr-[20px] font-bold text-[16px] hover:text-nameColor">{{ article.title }}
+                                </h1>
                                 <div class="">
                                     <ul class="flex justify-center items-center">
                                         <li class="mr-[4px] h-[20px] flex items-center border rounded-[5px] text-[12px] bg-tagBg hover:bg-tagBgHover"
@@ -290,6 +246,7 @@ export default {
     },
     data() {
         return {
+            userData : null,
             articleList: [],
             questionList: [],
             currentPage: 1,
@@ -311,11 +268,19 @@ export default {
         window.removeEventListener('scroll', this.handleScroll);
     },
     async mounted() {
+        const storedUserData = localStorage.getItem('userData');
+        if (storedUserData) {
+            this.userData = JSON.parse(storedUserData);
+        }
+        console.log(this.userData)
         this.getArticleListByPage(this.currentPage);
         this.getQuestionLatest();
         if (this.pageInfo.current_page != this.currentPage) {
             this.currentPage = this.pageInfo.current_page;
         }
+
+        //// 
+       
 
     },
     methods: {

@@ -17,8 +17,12 @@ export default {
         'borderFooterColor' : '#3C485C',
         'textDisplayColor' : '#ADADAD',
         'borderPage' :'#5488C7',
-        'bgUpBtn' : '#5488C7'
-        
+        'bgUpBtn' : '#5488C7',
+        'bgLoginBtn' :'#409EFF',
+        'textLogin':'#007BFF',
+        'bgDropdown' : '#F0F0F0',
+        'textDropdown' : '#606266',
+        'borderBox' :'#DCDFE6'
       }
     },
   },
