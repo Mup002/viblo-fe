@@ -53,6 +53,9 @@
                     </svg>
                     Viết bài
                 </div>
+                <div class="">
+
+                </div>
             </li>
         </ul>
     </div>
@@ -63,11 +66,13 @@
     </div>
 </template>
 <script>
+
 export default {
     name: "Nav",
     data() {
         return {
             userData: null,
+            hasCkEditor : false
         }
     },
     async mounted() {

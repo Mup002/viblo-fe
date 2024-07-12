@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-[50px] items-center fixed top-[0px] z-[100]">
-    <div class="w-full flex justify-between items-center  bg-gray-200">
+    <div class="w-full flex justify-between items-center  bg-[#FFFFFF] header_">
       <div class="w-1/3 flex justify-center items-center h-[50px]  pl-[10%]">
         <ul class="flex h-full space-x-4 list-none items-center">
           <li>

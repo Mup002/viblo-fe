@@ -22,7 +22,8 @@ export default {
         'textLogin':'#007BFF',
         'bgDropdown' : '#F0F0F0',
         'textDropdown' : '#606266',
-        'borderBox' :'#DCDFE6'
+        'borderBox' :'#DCDFE6',
+        'bgPost':'#F6F6F7'
       }
     },
   },

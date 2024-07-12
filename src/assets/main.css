@@ -35,10 +35,28 @@ fade-enter-active,
 .dropdown-menu {
     background-color: FFFFFF;
     border: 1px solid #ccc;
- 
+
     position: absolute;
     top: 50px;
     right: 0;
     z-index: 1000;
-   
+
+}
+
+.header_,
+.drop_ {
+    box-shadow: 0 4px 4px 0 #0000001a;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+.checkbox-group input[type="radio"] {
+    margin-right: 10px;
+}
+.ck-editor__editable_inline {
+    min-height: 500px;
 }
