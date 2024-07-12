@@ -10,6 +10,7 @@ import OnlyHeaderLayout from '@/layouts/OnlyHeaderLayout.vue';
 import NoHeaderLayout from '@/layouts/NoHeaderLayout.vue';
 import FollowingView from '@/views/user/FollowingView.vue';
 import PostView  from '@/views/user/PostView.vue';
+import BookmarkView from '@/views/user/BookmarkView.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   linkActiveClass: "active", 
@@ -48,6 +49,11 @@ const router = createRouter({
           path : '/followings',
           name :'FollowingView',
           component : FollowingView
+        },
+        {
+          path: '/bookmarks',
+          name: 'BookmarkView',
+          component:  BookmarkView
         }
       ]
     },
