@@ -274,7 +274,7 @@ export default {
     methods: {
         async getArticleListByPage(tagId,pageNumber) {
             try {
-                const response = await axios.get(`http://viblo.local/api/v1/article/getArticlesByTagId?tagId=${tagId}&page=${pageNumber}`)
+                const response = await axios.get(`http://viblo.local/api/v1/articles/tags?tagId=${tagId}&page=${pageNumber}`)
                 this.articleList = response.data.article
                 this.pageInfo = response.data.page
                 console.log(this.pageInfo)
@@ -296,7 +296,7 @@ export default {
         },
         async getQuestionLatest() {
             try {
-                const response = await axios.get('http://viblo.local/api/v1/question/getThreeLatestQuestions')
+                const response = await axios.get('http://viblo.local/api/v1/questions/threeLatest')
                 this.questionList = response.data
             } catch (error) {
                 console.log(error);

@@ -42,16 +42,17 @@
                 d="M17 4a2.121 2.121 0 0 1 0 3l-9.5 9.5l-4 1l1-3.944l9.504-9.552a2.116 2.116 0 0 1 2.864-.125zM9.5 17.5h8m-2-11l1 1" />
             </svg>
           </li>
-          <li v-if="this.userData == null" class="flex justify-center items-center">
+          <li v-if="getLoginApiStatus != true" class="flex justify-center items-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="1em" viewBox="0 0 24 24">
               <path fill="#2da9d2"
                 d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h7v2H5v14h7v2zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5z" />
             </svg>
-            <h1 class="text-[15px] text-blue-600 hover:text-blue-400">Đăng nhập/Đăng ký</h1>
+            <h1 class="text-[15px] text-blue-600 hover:text-blue-400"><router-link to="/login">Đăng nhập/Đăng
+                ký</router-link></h1>
           </li>
           <li v-else @click="toggleDropdown">
             <img class="mx-4 rounded-[50%] w-[40px] h-[40px]"
-              :src="this.userData.user.avt_url ? this.userData.user.avt_url : 'https://images.viblo.asia/60x60/d1cbe1cf-3a91-41c1-a7b4-49c51e3db42a.jpg'"
+              :src="getUserProfile.avt_url ? getUserProfile.avt_url : 'https://images.viblo.asia/60x60/d1cbe1cf-3a91-41c1-a7b4-49c51e3db42a.jpg'"
               alt="Avatar">
           </li>
 
@@ -62,13 +63,11 @@
       <div v-if="isDropdownVisible" class="dropdown-menu w-[250px] flex flex-wrap justify-center">
         <div class="flex flex-wrap items-center w-full h-[100px] bg-bgDropdown">
           <div class="w-[50%] flex items-start h-full pt-[10px] pr-[20px]">
-            <img class="mx-4 rounded-[50%] w-[70px] h-[70px]"
-              :src="this.userData.user.avt_url ? this.userData.user.avt_url : 'https://images.viblo.asia/60x60/d1cbe1cf-3a91-41c1-a7b4-49c51e3db42a.jpg'"
-              alt="Avatar">
+            <img class="mx-4 rounded-[50%] w-[70px] h-[70px]" :src="getUserProfile.avt_url" alt="Avatar">
           </div>
           <div class="w-[5%] flex flex-wrap justify-start items-center h-full">
-            <h1 class="text-textLogin w-full text-[15px] font-bold h-[5px]">{{ this.userData.user.username }}</h1>
-            <h2 class="text-textDisplayColor w-full h-[10px]">{{ this.userData.user.display_name }}</h2>
+            <h1 class="text-textLogin w-full text-[15px] font-bold h-[5px]">{{ getUserProfile.username }}</h1>
+            <h2 class="text-textDisplayColor w-full h-[10px]">{{ getUserProfile.display_name }}</h2>
             <button
               class="bg-bgUpBtn hover:bg-blue-500 w-[50px] h-[30px] rounded-md text-white font-bold p-[4px] mt-[5px]">Sửa</button>
           </div>
@@ -112,10 +111,10 @@
             <svg class="mr-[20px]" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
               <path fill="#606266" fill-rule="evenodd"
                 d="M14.208 4.83q.68.21 1.3.54l1.833-1.1a1 1 0 0 1 1.221.15l1.018 1.018a1 1 0 0 1 .15 1.221l-1.1 1.833q.33.62.54 1.3l2.073.519a1 1 0 0 1 .757.97v1.438a1 1 0 0 1-.757.97l-2.073.519q-.21.68-.54 1.3l1.1 1.833a1 1 0 0 1-.15 1.221l-1.018 1.018a1 1 0 0 1-1.221.15l-1.833-1.1q-.62.33-1.3.54l-.519 2.073a1 1 0 0 1-.97.757h-1.438a1 1 0 0 1-.97-.757l-.519-2.073a7.5 7.5 0 0 1-1.3-.54l-1.833 1.1a1 1 0 0 1-1.221-.15L4.42 18.562a1 1 0 0 1-.15-1.221l1.1-1.833a7.5 7.5 0 0 1-.54-1.3l-2.073-.519A1 1 0 0 1 2 12.72v-1.438a1 1 0 0 1 .757-.97l2.073-.519q.21-.68.54-1.3L4.27 6.66a1 1 0 0 1 .15-1.221L5.438 4.42a1 1 0 0 1 1.221-.15l1.833 1.1q.62-.33 1.3-.54l.519-2.073A1 1 0 0 1 11.28 2h1.438a1 1 0 0 1 .97.757zM12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8" />
-            </svg> Tùy chỉchỉnh
+            </svg> Tùy chỉnh
           </div>
         </div>
-        <div class="flex flex-wrap w-full bg-white pl-[20px] hover:bg-bgDropdown">
+        <div class="flex flex-wrap w-full bg-white pl-[20px] hover:bg-bgDropdown" @click="logout">
           <div class="w-full h-[50px] flex justify-start items-center">
             <svg class="mr-[20px]" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
               <path fill="#606266"
@@ -127,25 +126,51 @@
     </transition>
   </div>
 </template>
+
 <script>
+import axios from "axios"
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Header",
   data() {
     return {
-      userData: null,
       isDropdownVisible: false,
     }
   },
-  async mounted() {
-    const storedUserData = localStorage.getItem('userData');
-    if (storedUserData) {
-      this.userData = JSON.parse(storedUserData);
-    }
+  computed: {
+    ...mapGetters("auth", {
+      getUserProfile: "getUserProfile",
+      getLoginApiStatus: "getLoginApiStatus",
+      getLogoutStatus: "getLogout",
+    }),
+
+  },
+  mounted() {
+    console.log(this.getUserProfile);
+    console.log(this.getLoginApiStatus)
   },
   methods: {
+    ...mapActions("auth", {
+      actionLogout: "userLogout"
+    }),
     toggleDropdown() {
       this.isDropdownVisible = !this.isDropdownVisible;
+    },
+
+    async logout() {
+      console.log("clieck")
+      try {
+        await this.actionLogout();
+        if (this.getLogoutStatus) {
+          window.location.href = "/";
+        }
+      } catch (error) {
+        console.log(error)
+      }
+
+      alert('log out failed');
     }
-  }
+  },
+
 };
 </script>

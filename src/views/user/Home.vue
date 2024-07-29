@@ -213,6 +213,8 @@ import axios from "axios"
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime"
 import 'dayjs/locale/vi';
+import { getLatestQuestion } from '@/services/questions.service'
+import { getArticle } from '@/services/articles.service'
 dayjs.locale('vi');
 dayjs.extend(relativeTime);
 
@@ -242,7 +244,7 @@ export default {
     },
     data() {
         return {
-            userData : null,
+            userData: null,
             articleList: [],
             questionList: [],
             currentPage: 1,
@@ -251,10 +253,14 @@ export default {
             isDropdownTitle: false,
             showContent: false,
             isDropdownContent: false,
-            pageInfo: null,
+            pageInfo: {
+                current_page: null,
+                last_page: null,
+                per_page: null,
+                total: null
+            },
             items: Array.from({ length: 10 }),
             showButton: false
-
         }
     },
     async created() {
@@ -264,30 +270,31 @@ export default {
         window.removeEventListener('scroll', this.handleScroll);
     },
     async mounted() {
-        const storedUserData = localStorage.getItem('userData');
-        if (storedUserData) {
-            this.userData = JSON.parse(storedUserData);
-        }
-        console.log(this.userData)
-        this.getArticleListByPage(this.currentPage);
-        this.getQuestionLatest();
+        await this.getQuestionLatest();
+        await this.getArticleListByPage(this.currentPage);
+
         if (this.pageInfo.current_page != this.currentPage) {
             this.currentPage = this.pageInfo.current_page;
         }
-
-        //// 
-       
-
     },
     methods: {
         async getArticleListByPage(pageNumber) {
             try {
-                const response = await axios.get(`http://viblo.local/api/v1/article/getLatestArticles?page=${pageNumber}`)
-                this.articleList = response.data.article
-                this.pageInfo = response.data.page
+                const response = await getArticle(pageNumber);
+                this.articleList = response.article;
+                this.pageInfo = response.page;
+                console.log(getArticle(pageNumber).article)
             } catch (error) {
                 console.log(error)
             }
+        },
+        async getQuestionLatest() {
+            try {
+                this.questionList = await getLatestQuestion();
+            } catch (error) {
+                console.log(error);
+            }
+
         },
         timeAgo(date) {
             return dayjs().to(dayjs(date));
@@ -301,15 +308,7 @@ export default {
         hideDropdownTime(index) {
             this.isDropdownTime.splice(index, 1, false);
         },
-        async getQuestionLatest() {
-            try {
-                const response = await axios.get('http://viblo.local/api/v1/question/getThreeLatestQuestions')
-                this.questionList = response.data
-            } catch (error) {
-                console.log(error);
-            }
 
-        },
         nextPage() {
             if (this.currentPage == this.pageInfo.last_page) {
                 this.currentPage = this.pageInfo.last_page;

@@ -74,8 +74,6 @@ import coreTranslations from 'ckeditor5/translations/es.js';
 import premiumFeaturesTranslations from 'ckeditor5-premium-features/translations/es.js';
 // More imports...
 
-
-
 // Style sheets imports...
 
 export default {
@@ -116,7 +114,7 @@ export default {
     methods: {
         toggleDropdown() {
             this.isDropdownVisible = !this.isDropdownVisible;
-        }
+        },
     }
 
 }

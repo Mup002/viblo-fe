@@ -11,6 +11,7 @@ import NoHeaderLayout from '@/layouts/NoHeaderLayout.vue';
 import FollowingView from '@/views/user/FollowingView.vue';
 import PostView  from '@/views/user/PostView.vue';
 import BookmarkView from '@/views/user/BookmarkView.vue';
+import store from '@/store/index.js';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   linkActiveClass: "active", 
@@ -48,7 +49,8 @@ const router = createRouter({
         {
           path : '/followings',
           name :'FollowingView',
-          component : FollowingView
+          component : FollowingView,
+          // meta: {requiresAuth : true}
         },
         {
           path: '/bookmarks',
@@ -72,6 +74,7 @@ const router = createRouter({
           component: LoginView
         },
         
+        
       ]
     },
     {
@@ -90,4 +93,18 @@ const router = createRouter({
   ]
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+      if (!store.getters.getLoginApiStatus) {
+          next({
+              path: '/login',
+              query: { redirect: '/' } 
+          });
+      } else {
+          next();
+      }
+  } else {
+      next();
+  }
+});
 export default router

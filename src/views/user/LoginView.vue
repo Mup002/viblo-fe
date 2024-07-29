@@ -27,8 +27,8 @@
             </div>
         </div>
         <div class="w-full flex flex-col justify-center items-center mt-[20px]">
-            <button class="w-[88%] bg-bgLoginBtn h-[40px] text-white hover:bg-blue-300"
-                @click="login(this.loginData)">Đăng nhập</button>
+            <button class="w-[88%] bg-bgLoginBtn h-[40px] text-white hover:bg-blue-300" @click="login()">Đăng
+                nhập</button>
         </div>
         <div class="w-full flex justify-around items-center mt-[20px]">
             <router-link to="/forgot" class="router text-textLogin text-[13px] hover:underline">Quên mật
@@ -40,6 +40,8 @@
 </template>
 <script>
 import axios from 'axios';
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
     data() {
         return {
@@ -53,19 +55,30 @@ export default {
     created() {
 
     },
+    computed: {
+        ...mapGetters("auth", {
+            getLoginApiStatus: "getLoginApiStatus",
+            getUserProfile: "getUserProfile"
+        }),
+    },
+    mounted() {
+
+    },
     methods: {
-        async login(request) {
-            try {
-                const response = await axios.post('http://viblo.local/api/v1/login', this.loginData)
-                if (response.status == 200) {
-                    this.userData = response.data;
-                    localStorage.setItem('userData', JSON.stringify(this.userData));
-                    window.location.href = "/";
-                }
-            } catch (error) {
-                console.log(error.message);
+        ...mapActions("auth", {
+            actionLoginApi: "loginApi",
+        }),
+        async login() {
+            const payload = this.loginData;
+            await this.actionLoginApi(payload);
+            if (this.getLoginApiStatus == true) {
+               this.$router.push("/");
+            } else {
+            
+                alert("failed");
             }
-        }
+        },
+       
     }
 }
 </script>

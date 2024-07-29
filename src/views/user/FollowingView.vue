@@ -217,6 +217,9 @@ import axios from "axios"
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime"
 import 'dayjs/locale/vi';
+import {getArticleByFollower} from '@/services/articles.service';
+import {getLatestQuestion} from '@/services/questions.service';
+import { mapActions, mapGetters } from "vuex";
 dayjs.locale('vi');
 dayjs.extend(relativeTime);
 
@@ -256,9 +259,15 @@ export default {
             isDropdownTitle: false,
             showContent: false,
             isDropdownContent: false,
-            pageInfo: null,
+            pageInfo: {
+                current_page: null,
+                last_page: null,
+                per_page: null,
+                total: null
+            },
             items: Array.from({ length: 10 }),
-            showButton: false
+            showButton: false,
+
 
         }
     },
@@ -268,37 +277,35 @@ export default {
     destroyed() {
         window.removeEventListener('scroll', this.handleScroll);
     },
+    computed: {
+        ...mapGetters("auth", {
+            getUserProfile: "getUserProfile",
+            getLoginApiStatus: "getLoginApiStatus",
+            getLogoutStatus: "getLogout",
+        }),
+    },
     async mounted() {
-       
-        const storedUserData = localStorage.getItem('userData');
-        if (storedUserData) {
-            this.userData = JSON.parse(storedUserData);
-        }
-        
-        this.getArticleListByPage(this.userData.user.user_id,this.currentPage);
         this.getQuestionLatest();
         if (this.pageInfo.current_page != this.currentPage) {
             this.currentPage = this.pageInfo.current_page;
         }
-
-        //// 
-
-        // api/user/getArticlesByFollowers?userId=168&page=1
+        const userProfile = this.getUserProfile;
+        if (userProfile && userProfile.user_id) {
+            await this.getArticleListByPage(userProfile.user_id, this.currentPage);
+        }
+    
     },
     methods: {
         async getArticleListByPage(userId, pageNumber) {
             try {
-                const config = {
-                headers: {
-                    'Authorization': `Bearer ${this.userData.access_token}`
-                }
-            }
-                const response = await axios.get(`http://viblo.local/api/user/getArticlesByFollowers?userId=${userId}&page=${pageNumber}`,config)
-                this.articleList = response.data.article
-                if(response.data.article.length === 0){
+               
+                const response = await getArticleByFollower(userId, pageNumber)
+
+                this.articleList = response.article
+                if(response.article.length === 0){
                     this.haveArticles = false;
                 }
-                this.pageInfo = response.data.page
+                this.pageInfo = response.page
             } catch (error) {
                 console.log(error)
             }
@@ -317,8 +324,7 @@ export default {
         },
         async getQuestionLatest() {
             try {
-                const response = await axios.get('http://viblo.local/api/v1/question/getThreeLatestQuestions')
-                this.questionList = response.data
+                this.questionList = await getLatestQuestion();
             } catch (error) {
                 console.log(error);
             }
@@ -328,7 +334,7 @@ export default {
             if (this.currentPage == this.pageInfo.last_page) {
                 this.currentPage = this.pageInfo.last_page;
             } else {
-                this.getArticleListByPage(this.userData.user.user_id,this.currentPage++);
+                this.getArticleListByPage(userProfile.user_id,this.currentPage++);
             }
 
         },
@@ -336,11 +342,11 @@ export default {
             if (this.currentPage == 1) {
                 this.currentPage = 1;
             } else {
-                this.getArticleListByPage(this.userData.user.user_id,this.currentPage--);
+                this.getArticleListByPage(userProfile.user_id,this.currentPage--);
             }
         },
         changePage(index) {
-            this.getArticleListByPage(this.userData.user.user_id,index);
+            this.getArticleListByPage(userProfile.user_id,index);
             this.currentPage = index
         },
         handleScroll() {

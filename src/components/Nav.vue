@@ -6,7 +6,7 @@
                     Nhà sáng tạo nội dung
                 </router-link>
             </li>
-            <li v-if="this.userData != null" class="text-white font-[15px]">
+            <li v-if="this.authen" class="text-white font-[15px]">
                 <router-link to="/followings" class="">
                     Đang theo dõi
                 </router-link>
@@ -36,16 +36,17 @@
                     Videos
                 </router-link>
             </li>
-            <li v-if="this.userData != null" class="text-white font-[15px]">
+            <li v-if="this.authen" class="text-white font-[15px]">
                 <router-link to="/bookmarks" class="">
                     Bookmarks của tôi
                 </router-link>
             </li>
 
-            <li v-if="this.userData != null" class="text-white font-[15px]">
-                <div
+            <li v-if="this.authen" class="text-white font-[15px]">
+                <div @click="newPost"
                     class="w-[100px] h-[30px] flex justify-center items-center px-[5px] bg-searchBtnBg rounded-sm font-semibold hover:bg-blue-600">
-                    <svg class="mr-[5px]" xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1em" viewBox="0 0 48 48">
+                    <svg class="mr-[5px]" xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1em"
+                        viewBox="0 0 48 48">
                         <g fill="none" stroke="white" stroke-linejoin="round" stroke-width="0.85">
                             <path fill="white" d="M5.325 43.5h8.485l31.113-31.113l-8.486-8.485L5.325 35.015z" />
                             <path stroke-linecap="round" d="m27.952 12.387l8.485 8.485" />
@@ -66,20 +67,44 @@
     </div>
 </template>
 <script>
-
+import { mapActions, mapGetters } from "vuex";
 export default {
     name: "Nav",
     data() {
         return {
             userData: null,
-            hasCkEditor : false
+            hasCkEditor: false,
+            authen : null,
         }
     },
     async mounted() {
-        const storedUserData = localStorage.getItem('userData');
-        if (storedUserData) {
-            this.userData = JSON.parse(storedUserData);
-        }
+        this.authen = localStorage.getItem('isAuthenticated');
     },
+    computed: {
+        ...mapGetters("auth", {
+            getUserProfile: "getUserProfile",
+            getLoginApiStatus: "getLoginApiStatus",
+            getLogoutStatus: "getLogout",
+        }),
+    },
+    methods: {
+        newPost() {
+            console.log("..")
+            this.$router.push('/post')
+        },
+        isUserProfileValid() {
+            console.log('getUserProfile:', this.getUserProfile);
+            console.log('isUserProfileValid:', this.getUserProfile &&
+                this.getUserProfile.id !== 0 &&
+                this.getUserProfile.username !== "" &&
+                this.getUserProfile.display_name !== "");
+            return (
+                this.getUserProfile &&
+                this.getUserProfile.id !== 0 &&
+                this.getUserProfile.username !== "" &&
+                this.getUserProfile.display_name !== ""
+            );
+        }
+    }
 }
 </script>
