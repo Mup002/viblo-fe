@@ -146,8 +146,8 @@ export default {
 
   },
   mounted() {
-    console.log(this.getUserProfile);
-    console.log(this.getLoginApiStatus)
+    // console.log(this.getUserProfile);
+    // console.log(this.getLoginApiStatus)
   },
   methods: {
     ...mapActions("auth", {
@@ -168,7 +168,7 @@ export default {
         console.log(error)
       }
 
-      alert('log out failed');
+      // alert('log out failed');
     }
   },
 

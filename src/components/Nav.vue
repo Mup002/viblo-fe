@@ -89,15 +89,10 @@ export default {
     },
     methods: {
         newPost() {
-            console.log("..")
+            // console.log("..")
             this.$router.push('/post')
         },
         isUserProfileValid() {
-            console.log('getUserProfile:', this.getUserProfile);
-            console.log('isUserProfileValid:', this.getUserProfile &&
-                this.getUserProfile.id !== 0 &&
-                this.getUserProfile.username !== "" &&
-                this.getUserProfile.display_name !== "");
             return (
                 this.getUserProfile &&
                 this.getUserProfile.id !== 0 &&

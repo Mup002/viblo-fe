@@ -23,7 +23,11 @@ export default {
         'bgDropdown' : '#F0F0F0',
         'textDropdown' : '#606266',
         'borderBox' :'#DCDFE6',
-        'bgPost':'#F6F6F7'
+        'bgPost':'#F6F6F7',
+        'iconColor' :'#9B9B9B',
+        'titleColor' :'#578AC8',
+        // 'borderBox' : '#E2E2E2'
+        
       }
     },
   },

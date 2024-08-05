@@ -41,7 +41,7 @@
 <script>
 import axios from 'axios';
 import { mapActions, mapGetters } from 'vuex';
-
+import Swal from 'sweetalert2'
 export default {
     data() {
         return {
@@ -72,13 +72,22 @@ export default {
             const payload = this.loginData;
             await this.actionLoginApi(payload);
             if (this.getLoginApiStatus == true) {
-               this.$router.push("/");
+                Swal.fire({
+                    title: 'ĐĂNG NHẬP THÀNH CÔNG',
+                    icon: 'success',
+                    showCancelButton: false,
+                    confirmButtonText: ' OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/";
+                    }
+                });
+                // this.$router.push("/");
             } else {
-            
                 alert("failed");
             }
         },
-       
+
     }
 }
 </script>

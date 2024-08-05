@@ -57,6 +57,25 @@ fade-enter-active,
 .checkbox-group input[type="radio"] {
     margin-right: 10px;
 }
+
 .ck-editor__editable_inline {
     min-height: 500px;
 }
+
+.truncate-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: inherit;
+    margin-bottom: 10px;
+    width: 100%;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.2em;
+    max-height: 2.4em;
+}
+

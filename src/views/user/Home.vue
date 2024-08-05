@@ -1,7 +1,6 @@
 <template>
     <div class="main_content mt-[40px] flex">
         <div class="r_content w-[70%]  items-center pl-[5%]">
-
             <div class="w-full flex justify-end items-center">
                 <div class="mx-[10px] relative">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.1em" viewBox="0 0 1792 1408"
@@ -51,8 +50,11 @@
                                 </div>
                             </div>
                             <div class="title_ flex w-full mt-[10px]">
-                                <h1 class=" mr-[20px] font-bold text-[16px] hover:text-nameColor">{{ article.title }}
-                                </h1>
+                                <router-link :to="getArticleUrl(article)">
+                                    <h1 class="mr-[20px] font-bold text-[16px] hover:text-nameColor">
+                                        {{ article.title }}
+                                    </h1>
+                                </router-link>
                                 <div class="">
                                     <ul class="flex justify-center items-center">
                                         <li class="mr-[4px] h-[20px] flex items-center border rounded-[5px] text-[12px] bg-tagBg hover:bg-tagBgHover"
@@ -263,6 +265,7 @@ export default {
             showButton: false
         }
     },
+   
     async created() {
         window.addEventListener('scroll', this.handleScroll);
     },
@@ -283,7 +286,7 @@ export default {
                 const response = await getArticle(pageNumber);
                 this.articleList = response.article;
                 this.pageInfo = response.page;
-                console.log(getArticle(pageNumber).article)
+                // console.log(getArticle(pageNumber).article)
             } catch (error) {
                 console.log(error)
             }
@@ -337,6 +340,9 @@ export default {
         },
         scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+        getArticleUrl(article) {
+            return `/users/articles/${article.address_url}`;
         }
     }
 }
